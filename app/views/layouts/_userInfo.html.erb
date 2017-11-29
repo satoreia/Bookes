@@ -1,0 +1,67 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-3">
+
+			<h2>User Info</h2>
+			<div class="image_box_big">
+				<% if current_user.image_id.nil? %>
+				<%= attachment_image_tag current_user, :image, :fill, 60, 60, fallback: "no_image.jpg" %>
+				<% else %>
+				<%= attachment_image_tag current_user, :image  %>
+				<% end %>
+			</div>
+			<table class="table">
+				<tbody>
+
+					<td><strong> Name</strong></td>
+					<td><strong><%= current_user.name %></strong></td>
+				</tr>
+				<tr>
+					<td><strong>Introduction</strong></td>
+					<td><strong><%= current_user.introduction %></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="row">
+				<%= link_to edit_user_path(current_user) do %>
+				<button type="button" class="btn btn-default btn-lg btn-block" aria-label="Left Align"><span class="glyphicon glyphicon-wrench col-xs-12" aria-hidden="true"></span></button>
+				<% end %>
+			</div>
+
+
+			<h2>New Books</h2>
+			<%= form_for(book) do |f| %>
+			<% if @book.errors.any? %>
+			<div id="error_explanation">
+				<h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+				<ul>
+					<% book.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+
+
+			<div class="row field">
+				<%= f.label :title %><br>
+				<%= f.text_field :title, :class => "col-xs-12" %>
+			</div>
+
+			<div class="row field">
+				<%= f.label :opinion %><br>
+				<%= f.text_area :opinion, :class => "col-xs-12" %>
+			</div>
+			<br>
+
+			<div class="row actions">
+				<%= f.submit :class => "col-xs-12 btn btn-primary" %>
+			</div>
+			<% end %>
+		</div>
+
+	</div>
+</div>
+</div>
